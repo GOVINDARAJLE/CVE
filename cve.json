@@ -1,1 +1,42 @@
-{"Source":"CVE FEED","Title":"CVE-2025-23131 - IBM DLM null pointer dereference vulnerability","Content":"CVE ID : CVE-2025-23131\nPublished : April 16, 2025, 3:16 p.m. | 23 minutes ago\nDescription : In the Linux kernel, the following vulnerability has been resolved:\n\ndlm: prevent NPD when writing a positive value to event_done\n\ndo_uevent returns the value written to event_done. In case it is a  \npositive value, new_lockspace would undo all the work, and lockspace  \nwould not be set. __dlm_new_lockspace, however, would treat that  \npositive value as a success due to commit 8511a2728ab8 (\"dlm: fix use  \ncount with multiple joins\").\n\nDown the line, device_create_lockspace would pass that NULL lockspace to  \ndlm_find_lockspace_local, leading to a NULL pointer dereference.\n\nTreating such positive values as successes prevents the problem. Given  \nthis has been broken for so long, this is unlikely to break userspace  \nexpectations.\nSeverity: 0.0 | NA\nVisit the link for more details, such as CVSS details, affected products, timeline, and more...","Detection Date":"16 Apr 2025","Type":"Vulnerability"}
+{
+  "source": "CVE FEED",
+  "detection_date": "09 May 2025",
+  "cve_list": [
+    {
+      "cve_id": "CVE-2025-23131",
+      "title": "IBM DLM null pointer dereference vulnerability",
+      "published": "April 16, 2025, 3:16 p.m.",
+      "severity": "0.0 | NA",
+      "type": "Vulnerability",
+      "description": "In the Linux kernel, a vulnerability was resolved in the function do_uevent which returned a positive value to event_done. This caused new_lockspace to undo operations and leave lockspace unset. Due to commit 8511a2728ab8, __dlm_new_lockspace treated it as success. Later, device_create_lockspace passed NULL to dlm_find_lockspace_local, resulting in a null pointer dereference (NPD). Fixing the return handling prevents the crash without breaking userspace behavior.",
+      "remote_exploitable": false,
+      "affected_products": ["Linux Kernel (specific versions not disclosed)"],
+      "vendor_contacted": true,
+      "exploit_disclosed": false
+    },
+    {
+      "cve_id": "CVE-2025-4452",
+      "title": "D-Link DIR-619L Buffer Overflow Vulnerability",
+      "published": "May 9, 2025, 2:15 a.m.",
+      "severity": "8.8 | HIGH",
+      "type": "Vulnerability",
+      "description": "A buffer overflow exists in the formSetWizard2 function of D-Link DIR-619L firmware 2.04B04. It is triggered by manipulating the curTime argument. The attack can be launched remotely. This vulnerability affects end-of-life products and will not be patched.",
+      "remote_exploitable": true,
+      "affected_products": ["D-Link DIR-619L (Firmware 2.04B04)"],
+      "vendor_contacted": true,
+      "exploit_disclosed": false
+    },
+    {
+      "cve_id": "CVE-2025-4455",
+      "title": "Patch My PC Home Updater DLL Search Path Manipulation",
+      "published": "May 9, 2025, 3:15 a.m.",
+      "severity": "7.0 | HIGH",
+      "type": "Vulnerability",
+      "description": "Patch My PC Home Updater <= 5.1.3.0 is affected by DLL search path hijacking involving critical Windows system libraries. A local attacker can exploit this to load malicious DLLs. The vendor did not respond to the disclosure. The exploit has been made public.",
+      "remote_exploitable": false,
+      "affected_products": ["Patch My PC Home Updater <= 5.1.3.0"],
+      "vendor_contacted": false,
+      "exploit_disclosed": true
+    }
+  ]
+}
